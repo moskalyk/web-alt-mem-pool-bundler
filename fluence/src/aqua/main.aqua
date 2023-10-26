@@ -1,0 +1,111 @@
+aqua Main
+
+import "@fluencelabs/aqua-lib/builtin.aqua"
+import "@fluencelabs/aqua-lib/subnet.aqua"
+
+use "deals.aqua"
+use "hosts.aqua"
+
+import SpellLocation from "hosts.aqua"
+
+-- IMPORTANT: Add exports for all functions that you want to run
+export greeting, getPeers, deletePeer, clearPeers
+-- resilience, consensus,
+-- , writeToPool, readPool
+
+service MyService("myService"):
+    add_peer(peer: string) -> string
+    get_peers() -> []string
+    remove_peer(peer: string) -> string
+    clear() -> string
+
+-- data UserOperation:
+--     address: string
+--     nonce: i64
+
+-- service AltMemPool("AltMemPool"):
+--     write(peer_id: PeerId, user_op: UserOperation, client: bool) -> bool
+--     read() -> []UserOperation
+
+-- func writeToPool(user_op: UserOperation, peer_id: PeerId, client: bool) -> bool:
+--     on peer_id:
+--         res <- AltMemPool.write(peer_id, user_op, client)
+--     <- res
+
+-- func readPool(peer_id: PeerId) -> []UserOperation:
+--     on peer_id:
+--         res <- AltMemPool.read()
+--     <- res
+
+func getWorkerInfo() -> []SpellLocation:
+    hosts <- Hosts.get()  
+    <- hosts.defaultWorker!.installationSpells
+
+func greeting(name: string) -> *string:
+    workers <- getWorkerInfo()
+    results:  *string
+    for w <- workers:
+        on w.workerId via w.hostId:
+            results <- MyService.add_peer(name)
+    <- results
+
+func getPeers() -> *[]string:
+    workers <- getWorkerInfo()
+    results:  *[]string
+    for w <- workers:
+        on w.workerId via w.hostId:
+            results <<- MyService.get_peers()
+    <- results
+
+func deletePeer(peer_id: string) -> *bool:
+    workers <- getWorkerInfo()
+    results:  *bool
+    for w <- workers:
+        on w.workerId via w.hostId:
+            Console.print(MyService.remove_peer(peer_id))
+            results <<- true
+    <- results
+
+func clearPeers() -> *bool:
+    workers <- getWorkerInfo()
+    results:  *bool
+    for w <- workers:
+        on w.workerId via w.hostId:
+            Console.print(MyService.clear())
+            results <<- true
+    <- results
+
+-- func resilience(name: string) -> *string:
+
+--     workers <- getWorkerInfo()
+--     results:  *string
+
+--     for w <- workers par:
+--         on w.workerId via w.hostId:
+--             results <- MyService.greeting(name)
+--     join results[0]
+
+--     <- results
+
+
+-- func consensus(name: string) -> *string, bool:
+
+    -- workers <- getWorkerInfo()
+    -- results:  *string
+    -- consensus: *bool
+
+    -- for w <- workers par:
+    --     on w.workerId via w.hostId:
+    --         results <- MyService.greeting(name)
+    -- join results[2]
+
+    -- if (results! == results[1]) && (results[1] == results[2]):
+    --     Console.print("We have consensus")
+    --     consensus <<- true
+    -- else:
+    --     consensus <<- false
+
+    -- <- results, consensus!
+
+            
+

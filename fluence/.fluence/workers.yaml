@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=schemas/workers.json
+
+# A result of app deployment. This file is created automatically after successful deployment using `fluence workers deploy` command
+
+# Documentation: https://github.com/fluencelabs/cli/tree/main/docs/configs/workers.md
+
+version: 0
+
+hosts:
+  defaultWorker:
+    definition: bafkreicmunaohvcik2z7unysh2pcdhmt7gofvwecwkfoqvtvw3qn7mkdxa
+    installation_spells:
+      - host_id: 12D3KooWFbasz6SnGxhPq3KWn8KgNW4asNKskxR5JizMdszM4KCN
+        spell_id: 274cf5b0-c244-4777-a5f1-a4658019156b
+        worker_id: 12D3KooWHXZoS1CRQihNU7zoBQtCkZoysHVW4ZGNRcvXJZdiTjAs
+      - host_id: 12D3KooWBCAWAGNMfqaBG1kUv49dkK8wSNeiTfGubLLjGQaFBf6z
+        spell_id: 364fabd1-47aa-4eb8-b266-16a278c82a4d
+        worker_id: 12D3KooWQGU6LLHEaXPAHygopNwSctbNGtiG8UhqWuPSmu4AJBV9
+      - host_id: 12D3KooWEqbHHE1bzk1nJ8LE2Wbm2UaycYjRsSB4CTxDS342Boip
+        spell_id: fd572d5a-70ff-411b-9a4c-9cede08db361
+        worker_id: 12D3KooWRHzLGQ9FxitVpt6RtYrxM8XfTci2yuNWAKEYbZbzxSqc
+    timestamp: 2023-10-25T22:15:41.362Z
+    relayId: 12D3KooWFbasz6SnGxhPq3KWn8KgNW4asNKskxR5JizMdszM4KCN
+    dummyDealId: defaultWorker_12D3KooWLbTpQHXCSHiULa6NZC3WCzEehY3PwNmAvjc2X2mPrdiF_0731451842952413

@@ -1,0 +1,21 @@
+{
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc -b"
+  },
+  "keywords": [
+    "fluence"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fluencelabs/js-client": "0.2.1",
+    "@fluencelabs/fluence-network-environment": "1.1.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,0 +1,162 @@
+{
+   "networks": {
+      "fluence_subnet": {
+         "driver": "bridge",
+         "name": "fluence_subnet"
+      }
+   },
+   "services": {
+      "fluence-1": {
+         "build": {
+            "context": ".",
+            "dockerfile": "./fluence-minimal.dockerfile"
+         },
+         "command": [
+            "--aqua-pool-size",
+            "2",
+            "-t",
+            "7771",
+            "-w",
+            "9991",
+            "--allow-private-ips",
+            "--external-maddrs",
+            "/ip4/127.0.0.1/tcp/7771",
+            "/ip4/127.0.0.1/tcp/9991/ws",
+            "--keypair-value",
+            "<ed25519_pkey>"
+         ],
+         "container_name": "fluence-1",
+         "environment": {
+            "FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR": "/ip4/127.0.0.1/tcp/15001",
+            "FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR": "/dns4/kubo/tcp/5001",
+            "IPFS_DAEMON": "false",
+            "RUST_LOG": "info"
+         },
+         "image": "fluence_local",
+         "labels": {
+            "name": "fluence-1",
+            "peer_id": "12D3KooWFbasz6SnGxhPq3KWn8KgNW4asNKskxR5JizMdszM4KCN",
+            "scrape": "true"
+         },
+         "networks": [
+            "fluence_subnet"
+         ],
+         "ports": [
+            "7771:7771",
+            "9991:9991",
+            "127.0.0.1:18881:18080"
+         ],
+         "restart": "no",
+         "volumes": [
+            "./Config1.toml:/.fluence/v1/Config.toml"
+         ]
+      },
+      "fluence-2": {
+         "build": {
+            "context": ".",
+            "dockerfile": "./fluence-minimal.dockerfile"
+         },
+         "command": [
+            "--aqua-pool-size",
+            "2",
+            "-t",
+            "7772",
+            "-w",
+            "9992",
+            "--allow-private-ips",
+            "--external-maddrs",
+            "/ip4/127.0.0.1/tcp/7772",
+            "/ip4/127.0.0.1/tcp/9992/ws",
+            "--keypair-value",
+            "<ed25519_pkey>"
+         ],
+         "container_name": "fluence-2",
+         "environment": {
+            "FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR": "/ip4/127.0.0.1/tcp/15001",
+            "FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR": "/dns4/kubo/tcp/5001",
+            "IPFS_DAEMON": "false",
+            "RUST_LOG": "info"
+         },
+         "image": "fluence_local",
+         "labels": {
+            "name": "fluence-2",
+            "peer_id": "12D3KooWBCAWAGNMfqaBG1kUv49dkK8wSNeiTfGubLLjGQaFBf6z",
+            "scrape": "true"
+         },
+         "networks": [
+            "fluence_subnet"
+         ],
+         "ports": [
+            "7772:7772",
+            "9992:9992",
+            "127.0.0.1:18882:18080"
+         ],
+         "restart": "no",
+         "volumes": [
+            "./Config2.toml:/.fluence/v1/Config.toml"
+         ]
+      },
+      "fluence-3": {
+         "build": {
+            "context": ".",
+            "dockerfile": "./fluence-minimal.dockerfile"
+         },
+         "command": [
+            "--aqua-pool-size",
+            "2",
+            "-t",
+            "7773",
+            "-w",
+            "9993",
+            "--allow-private-ips",
+            "--external-maddrs",
+            "/ip4/127.0.0.1/tcp/7773",
+            "/ip4/127.0.0.1/tcp/9993/ws",
+            "--keypair-value",
+            "<ed25519_pkey>"
+         ],
+         "container_name": "fluence-3",
+         "environment": {
+            "FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR": "/ip4/127.0.0.1/tcp/15001",
+            "FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR": "/dns4/kubo/tcp/5001",
+            "IPFS_DAEMON": "false",
+            "RUST_LOG": "info"
+         },
+         "image": "fluence_local",
+         "labels": {
+            "name": "fluence-3",
+            "peer_id": "12D3KooWEqbHHE1bzk1nJ8LE2Wbm2UaycYjRsSB4CTxDS342Boip",
+            "scrape": "true"
+         },
+         "networks": [
+            "fluence_subnet"
+         ],
+         "ports": [
+            "7773:7773",
+            "9993:9993",
+            "127.0.0.1:18883:18080"
+         ],
+         "restart": "no",
+         "volumes": [
+            "./Config3.toml:/.fluence/v1/Config.toml"
+         ]
+      },
+      "kubo": {
+         "container_name": "kubo4fluence",
+         "image": "ipfs/kubo:latest",
+         "networks": [
+            "fluence_subnet"
+         ],
+         "ports": [
+            "14001:4001",
+            "15001:5001",
+            "127.0.0.1:18081:8080"
+         ],
+         "restart": "no",
+         "volumes": [
+            "./ipfs.sh:/container-init.d/01-ipfs.sh"
+         ]
+      }
+   },
+   "version": "3"
+}

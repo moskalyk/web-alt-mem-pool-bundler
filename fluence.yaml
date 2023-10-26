@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=.fluence/schemas/fluence.json
+
+# Defines Fluence Project, most importantly - what exactly you want to deploy and how. You can use `fluence init` command to generate a template for new Fluence project
+
+# Documentation: https://github.com/fluencelabs/cli/tree/main/docs/configs/fluence.md
+
+version: 3
+
+relays:
+  - /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWGxiMN9cF5GoUvvJvMTyR2cDprKnjUXM94fDc6rARkj4p
+
+aquaInputPath: src/aqua/main.aqua
+
+hosts:
+  defaultWorker:
+    peerIds:
+      - 12D3KooWGxiMN9cF5GoUvvJvMTyR2cDprKnjUXM94fDc6rARkj4p
+      - 12D3KooWHdrJ673EGzeqT7hQJGZjEfuFDDe686yE79LHHB6iaK8k
+      - 12D3KooWKXT9CeazgPgn7vvjsaW2G56ZcZH3RK8aq2ULBsg1Jyr2
+
+workers:
+  defaultWorker:
+    services: [ myService ]
+    spells: []
+
+deals:
+  defaultWorker:
+    minWorkers: 3
+    targetWorkers: 3
+
+services:
+  myService:
+    get: src/services/myService
+
+contractsEnv: testnet

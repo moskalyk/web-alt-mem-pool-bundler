@@ -1,0 +1,24 @@
+aqua Main
+
+import "@fluencelabs/aqua-lib/builtin.aqua"
+
+-- IMPORTANT: Add exports for all functions that you want to run
+export writeToPool, readPool
+
+data UserOperation:
+    address: string
+    nonce: i64
+
+service AltMemPool("AltMemPool"):
+    write(peer_id: PeerId, user_op: UserOperation, client: bool) -> bool
+    read() -> []UserOperation
+
+func writeToPool(user_op: UserOperation, peer_id: PeerId, client: bool) -> bool:
+    on peer_id:
+        res <- AltMemPool.write(peer_id, user_op, client)
+    <- res
+
+func readPool(peer_id: PeerId) -> []UserOperation:
+    on peer_id:
+        res <- AltMemPool.read()
+    <- res
